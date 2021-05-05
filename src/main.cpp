@@ -1,7 +1,7 @@
 #include <Arduino.h>
 //-------БИБЛИОТЕКИ---------
-#include "LowPower.h"
-#include "EEPROMex.h"
+//#include "LowPower.h"
+//#include "EEPROMex.h"
 #include "LCD_1602_RUS.h"
 //-------БИБЛИОТЕКИ---------
 
