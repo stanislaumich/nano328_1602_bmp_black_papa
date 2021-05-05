@@ -3,6 +3,7 @@
 //#include "LowPower.h"
 //#include "EEPROMex.h"
 #include "LCD_1602_RUS.h"
+#include <GyverUART.h>
 //-------БИБЛИОТЕКИ---------
 
 LCD_1602_RUS lcd(0x27, 16, 2);            // создать дисплей
@@ -13,7 +14,7 @@ bool     button_state = false;
 bool     button_long_state = false;
 
 void setup() {
-  Serial.begin(9600); 
+  uart.begin(9600); 
    lcd.init();
   lcd.backlight();
   lcd.clear();
@@ -24,8 +25,13 @@ void setup() {
 void loop(){
 
  uint32_t ms    = millis();
+ if(uart.available()){
+  String s=uart.readStringUntil(10);
+  lcd.setCursor(0, 1);
+  lcd.print(s);
+ }
 
-
+ 
  int i=analogRead(A3);
    if( i<1022 && !button_state && ( ms - ms_button ) > 50 ){
       button_state      = true;
