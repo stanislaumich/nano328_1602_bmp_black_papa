@@ -13,8 +13,10 @@ uint32_t ms_button = 0;
 bool     button_state = false;
 bool     button_long_state = false;
 
+char screen[16][2];
+
 void setup() {
-  uart.begin(9600); 
+  uart.begin(115200); 
    lcd.init();
   lcd.backlight();
   lcd.clear();
