@@ -26,12 +26,13 @@ void loop(){
 
  uint32_t ms    = millis();
  if(uart.available()){
-  String s=uart.readStringUntil(10);
+  String s=uart.readString();
+  s.trim();
   lcd.setCursor(0, 1);
   lcd.print(s);
  }
 
- 
+
  int i=analogRead(A3);
    if( i<1022 && !button_state && ( ms - ms_button ) > 50 ){
       button_state      = true;
@@ -43,7 +44,6 @@ void loop(){
 // Фиксируем длинное нажатие кнопки   
    if( i<1022 && !button_long_state && ( ms - ms_button ) > 2000 ){
       button_long_state = true;
-      Serial.println("Long press key");
       lcd.setCursor(0, 1);
       lcd.print("LONG");    
    }
