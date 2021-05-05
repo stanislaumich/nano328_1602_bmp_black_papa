@@ -14,13 +14,19 @@ void setup() {
   lcd.backlight();
   lcd.clear();
         lcd.setCursor(0, 0);
-        lcd.print(L"Привет");
+        lcd.print(L"Привет, ромашки");
 
 
 }
 void loop(){
-
-
+ int i=analogRead(A3);
+ lcd.setCursor(0, 1);
+ if (i>1022){
+ lcd.print("OFF");
+ }else{
+  lcd.print("ON "); 
+ }
+ delay(10);
 }
 
 /*
