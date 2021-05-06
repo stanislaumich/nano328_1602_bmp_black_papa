@@ -40,6 +40,7 @@ void loop(){
 
  uint32_t ms    = millis();
  if(uart.available()){
+  dshortbeep();
   String s=uart.readString();
   s.trim();
   lcd.setCursor(0, 1);
