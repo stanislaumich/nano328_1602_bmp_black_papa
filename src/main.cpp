@@ -4,19 +4,31 @@
 //#include "EEPROMex.h"
 #include "LCD_1602_RUS.h"
 #include <GyverUART.h>
+#include "beep.h"
 //-------БИБЛИОТЕКИ---------
 
 LCD_1602_RUS lcd(0x27, 16, 2);            // создать дисплей
 // если дисплей не работает, замени 0x27 на 0x3f
-
+//D2 beeper
 uint32_t ms_button = 0;
 bool     button_state = false;
 bool     button_long_state = false;
 
 char screen[16][2];
 
+void Shor(void){
+ shortbeep();
+
+}
+
+void Long(void){
+ longbeep();
+
+}
+
 void setup() {
-  uart.begin(115200); 
+  uart.begin(115200);
+  initBeep(); 
    lcd.init();
   lcd.backlight();
   lcd.clear();
@@ -47,7 +59,8 @@ void loop(){
    if( i<1022 && !button_long_state && ( ms - ms_button ) > 2000 ){
       button_long_state = true;
       lcd.setCursor(0, 1);
-      lcd.print("LONG");    
+      lcd.print("LONG");
+      Long();    
    }
 // Фиксируем отпускание кнопки   
    if( i>1022 && button_state && ( ms - ms_button ) > 50  ){
@@ -55,7 +68,8 @@ void loop(){
       ms_button         = ms;
       if( !button_long_state ){
         lcd.setCursor(0, 1);
-        lcd.print("SHOR");   
+        lcd.print("SHOR");
+        Shor();   
       }
    }
 
